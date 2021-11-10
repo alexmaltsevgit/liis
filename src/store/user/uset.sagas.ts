@@ -10,7 +10,7 @@ function* authorize() {
 
 function* unauthorize() {
   // Better make request to server
-  Cookies.set(CookiesKeys.Authorized, "1");
+  Cookies.set(CookiesKeys.Authorized, "0");
 }
 
 function* onLogin() {
