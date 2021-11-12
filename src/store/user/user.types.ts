@@ -5,11 +5,22 @@ export type UserState = {
   isAuthorized: boolean;
   login: string;
   password: string;
+  error?: string;
 };
 
-export type LoginAction = PayloadAction<Without<UserState, "isAuthorized">>;
+export type LoginPayloadAction = PayloadAction<
+  Without<UserState, "isAuthorized" | "error">
+>;
 
-export enum Actions {
-  Login = "login",
-  Logout = "logout",
+export type ErrorPayloadAction = PayloadAction<Pick<UserState, "error">>;
+
+export enum UserActionTypes {
+  TryLogIn = "user/tryLogIn",
+  TryLogOut = "user/tryLogOut",
+
+  LogInSucceeded = "user/logInSucceeded",
+  LogInError = "user/logInError",
+
+  LogOutSucceeded = "user/logOutSucceeded",
+  LogOutError = "user/logOutError",
 }
