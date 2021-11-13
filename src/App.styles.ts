@@ -19,6 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 100%; // 16px by default
     font-family: Roboto, sans-serif;
     color: ${({ theme }: GlobalStyleProps) => theme.colors.text.primary};
+    background-color: ${({ theme }) => theme.colors.background};;
   }
 
   #root {
@@ -74,4 +75,9 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 0;
     font-weight: 0;
   };
+  
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.text.primary};
+  }
 `;

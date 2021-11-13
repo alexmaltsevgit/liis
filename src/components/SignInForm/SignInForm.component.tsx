@@ -45,11 +45,11 @@ const SignInForm = () => {
         <input {...register("login")} type="text" />
       </InputWrapper>
 
-      <InputWrapper label={"Пароль"} error={errors.password}>
+      <InputWrapper label={"Пароль"} error={errors.password} mt={"24px"}>
         <input {...register("password")} type="password" />
       </InputWrapper>
 
-      <InputWrapper>
+      <InputWrapper mt={"32px"}>
         <input type="submit" />
       </InputWrapper>
     </form>
