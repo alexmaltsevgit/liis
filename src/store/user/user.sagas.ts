@@ -1,5 +1,5 @@
 import { takeEvery, all, call, put } from "redux-saga/effects";
-import { UserActionTypes, LoginPayloadAction } from "./user.types";
+import { LoginPayloadAction } from "./user.types";
 import Cookies from "js-cookie";
 import { CookiesKeys } from "../../utils/cookies";
 import { userActions } from "./user.slice";
@@ -8,9 +8,9 @@ function* authorize({ payload: { login, password } }: LoginPayloadAction) {
   try {
     // Better make request to server
     yield Cookies.set(CookiesKeys.isAuthorized, "1");
-    yield put(userActions.logInSucceeded({ login, password }));
+    yield put(userActions.logInSuccess({ login }));
   } catch (e) {
-    yield put(userActions.logInError(e));
+    yield put(userActions.logInError(e.message));
   }
 }
 
@@ -18,18 +18,18 @@ function* unauthorize() {
   try {
     // Better make request to server
     yield Cookies.set(CookiesKeys.isAuthorized, "0");
-    yield put(userActions.logOutSucceeded());
+    yield put(userActions.logOutSuccess());
   } catch (e) {
-    yield put(userActions.logOutError(e));
+    yield put(userActions.logOutError(e.message));
   }
 }
 
 function* onLogin() {
-  yield takeEvery(UserActionTypes.TryLogIn, authorize);
+  yield takeEvery(userActions.tryLogIn.type, authorize);
 }
 
 function* onLogout() {
-  yield takeEvery(UserActionTypes.TryLogOut, unauthorize);
+  yield takeEvery(userActions.tryLogOut.type, unauthorize);
 }
 
 export default function* userSagas() {

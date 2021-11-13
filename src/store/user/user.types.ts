@@ -4,23 +4,16 @@ import { PayloadAction } from "@reduxjs/toolkit";
 export type UserState = {
   isAuthorized: boolean;
   login: string;
-  password: string;
   error?: string;
 };
 
-export type LoginPayloadAction = PayloadAction<
-  Without<UserState, "isAuthorized" | "error">
->;
+type UserData = Without<UserState, "isAuthorized" | "error">;
 
-export type ErrorPayloadAction = PayloadAction<Pick<UserState, "error">>;
+export type LoginPayloadAction = PayloadAction<{
+  login: string;
+  password: string;
+}>;
 
-export enum UserActionTypes {
-  TryLogIn = "user/tryLogIn",
-  TryLogOut = "user/tryLogOut",
+export type SuccessPayloadAction = PayloadAction<UserData>;
 
-  LogInSucceeded = "user/logInSucceeded",
-  LogInError = "user/logInError",
-
-  LogOutSucceeded = "user/logOutSucceeded",
-  LogOutError = "user/logOutError",
-}
+export type ErrorPayloadAction = PayloadAction<{ error: string }>;

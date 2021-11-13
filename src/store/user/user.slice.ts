@@ -3,6 +3,7 @@ import {
   LoginPayloadAction,
   ErrorPayloadAction,
   UserState,
+  SuccessPayloadAction,
 } from "./user.types";
 import Cookies from "js-cookie";
 import { CookiesKeys } from "../../utils/cookies";
@@ -11,17 +12,15 @@ import { CookiesKeys } from "../../utils/cookies";
 const initialState: UserState = {
   isAuthorized: !!Cookies.get(CookiesKeys.isAuthorized),
   login: "",
-  password: "",
 };
 
-enum Actions {
+enum ActionTypes {
   TryLogIn = "tryLogIn",
-  TryLogOut = "tryLogOut",
-
-  LogInSucceeded = "logInSucceeded",
+  LogInSuccess = "logInSuccess",
   LogInError = "logInError",
 
-  LogOutSucceeded = "logOutSucceeded",
+  TryLogOut = "tryLogOut",
+  LogOutSuccess = "logOutSuccess",
   LogOutError = "logOutError",
 }
 
@@ -29,29 +28,29 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    [Actions.TryLogIn]: (state, action: LoginPayloadAction) => {
+    [ActionTypes.TryLogIn]: (state, action: LoginPayloadAction) => {
       // saga trigger
     },
 
-    [Actions.TryLogOut]: () => {
-      // saga trigger
-    },
-
-    [Actions.LogInSucceeded]: (state, action: LoginPayloadAction) => {
+    [ActionTypes.LogInSuccess]: (state, action: SuccessPayloadAction) => {
       state.isAuthorized = true;
       state.login = action.payload.login;
-      state.password = action.payload.password;
     },
 
-    [Actions.LogInError]: (state, action: ErrorPayloadAction) => {
+    [ActionTypes.LogInError]: (state, action: ErrorPayloadAction) => {
       state.error = action.payload.error;
     },
 
-    [Actions.LogOutSucceeded]: (state) => {
-      Object.assign(state, initialState);
+    [ActionTypes.TryLogOut]: () => {
+      // saga trigger
     },
 
-    [Actions.LogOutError]: (state, action: ErrorPayloadAction) => {
+    [ActionTypes.LogOutSuccess]: (state) => {
+      Object.assign(state, initialState);
+      state.isAuthorized = false;
+    },
+
+    [ActionTypes.LogOutError]: (state, action: ErrorPayloadAction) => {
       state.error = action.payload.error;
     },
   },
