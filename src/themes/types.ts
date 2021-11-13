@@ -1,5 +1,6 @@
 export type AppTheme = {
   colors: {
+    background: string;
     red?: string;
     yellow?: string;
     text: {
