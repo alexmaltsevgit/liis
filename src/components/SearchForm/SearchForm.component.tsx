@@ -5,14 +5,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import { hotelsActions } from "../../store/hotels/hotels.slice";
+import { getDateByDaysOffset } from "../../utils/date";
 
 type SearchFormData = {
   location: string;
   date: string;
-  dayCount: number;
+  daysCount: number;
 };
 
-const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+const yesterday = getDateByDaysOffset(new Date(), -1);
+const limit = 30;
 
 const scheme = yup.object({
   location: yup
@@ -26,7 +28,7 @@ const scheme = yup.object({
     .required("Обязательное поле")
     .typeError("Некорректный ввод"),
 
-  dayCount: yup
+  daysCount: yup
     .number()
     .integer("Число должно быть целым")
     .positive("Число должно быть больше 0")
@@ -48,10 +50,16 @@ const SearchForm = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (formData: SearchFormData) => {
-    const { location, date, dayCount } = formData;
-    const checkIn = new Date(Date.parse(date));
-    const checkOut = new Date().setDate(checkIn.getDate() + dayCount);
-    dispatch(hotelsActions.tryFetch({ location, checkIn, checkOut }));
+    const { location, date, daysCount } = formData;
+    console.log("click");
+    dispatch(
+      hotelsActions.tryFetch({
+        location,
+        checkIn: date,
+        daysCount: daysCount,
+        limit,
+      })
+    );
   };
 
   return (
@@ -73,9 +81,9 @@ const SearchForm = () => {
         label={"Количество дней"}
         mt={"20px"}
         bold
-        error={errors.dayCount}
+        error={errors.daysCount}
       >
-        <input {...register("dayCount")} type="number" />
+        <input {...register("daysCount")} type="number" />
       </InputWrapper>
 
       <InputWrapper mt={"32px"}>

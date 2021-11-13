@@ -1,8 +1,5 @@
 import { HotelsAPIData } from "../../store/hotels/hotels.types";
-
-type Timestamp = number;
-type StringDate = string;
-export type CheckDate = Date | StringDate | Timestamp;
+import { normalize, UnnormalizedDate } from "../date";
 
 enum RequestKeys {
   location = "location",
@@ -35,26 +32,12 @@ class Check {
       .join('-')
   }
 
-  public setDate(value: CheckDate) {
-    this.date = Check.normalized(value);
+  public setDate(value: UnnormalizedDate) {
+    this.date = normalize(value);
   }
 
-  public constructor(checkDate: CheckDate) {
+  public constructor(checkDate: UnnormalizedDate) {
     this.setDate(checkDate);
-  }
-
-  private static normalized(checkDate: CheckDate) {
-    if (checkDate instanceof Date) return checkDate;
-
-    const checkDateType = typeof checkDate;
-    switch (checkDateType) {
-      case "number":
-        return new Date(checkDate);
-      case "string":
-        return new Date(Date.parse(checkDate as string));
-      default:
-        throw new Error("Please, use typescript");
-    }
   }
 }
 
@@ -83,8 +66,8 @@ export default class HotelsAPI {
 
   public constructor(
     location: string,
-    checkIn: CheckDate,
-    checkOut: CheckDate,
+    checkIn: UnnormalizedDate,
+    checkOut: UnnormalizedDate,
     limit?: number
   ) {
     this.location = location;

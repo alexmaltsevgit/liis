@@ -8,6 +8,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: HotelsState = {
   items: [],
+  location: "",
+  checkIn: "",
+  daysCount: 0,
 };
 
 enum ActionTypes {
@@ -21,11 +24,17 @@ const hotelsSlice = createSlice({
   initialState,
   reducers: {
     [ActionTypes.TryFetch]: (state, action: FetchHotelsPayloadAction) => {
+      console.log("act");
       // saga trigger
     },
 
     [ActionTypes.FetchSuccess]: (state, action: SuccessPayloadAction) => {
-      state.items = action.payload;
+      const { location, checkIn, daysCount } = action.payload;
+      state.items = action.payload.items; // don't copy large list
+      state.location = location;
+      state.checkIn = checkIn;
+      state.daysCount = daysCount;
+      state.error = undefined;
     },
 
     [ActionTypes.FetchError]: (state, action: ErrorPayloadAction) => {

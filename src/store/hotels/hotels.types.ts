@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { CheckDate } from "../../utils/api/HotelsAPI";
+import { UnnormalizedDate } from "../../utils/date";
 
 export type Hotel = unknown;
 
@@ -7,17 +7,20 @@ export type HotelsAPIData = Array<Hotel>;
 
 export type HotelsState = {
   items: HotelsAPIData;
+  location: string;
+  checkIn: UnnormalizedDate;
+  daysCount: number;
   error?: string;
 };
 
 export type FetchHotelsPayloadAction = PayloadAction<{
   location: string;
-  checkIn: CheckDate;
-  checkOut: CheckDate;
+  checkIn: UnnormalizedDate;
+  daysCount: number;
   limit?: number;
 }>;
 
-export type SuccessPayloadAction = PayloadAction<HotelsAPIData>;
+export type SuccessPayloadAction = PayloadAction<HotelsState>;
 
 export type ErrorPayloadAction = PayloadAction<{
   error: string;
