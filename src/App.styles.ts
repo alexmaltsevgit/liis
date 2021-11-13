@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
   #root {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
   }
 
   img {
@@ -55,7 +55,7 @@ export const GlobalStyle = createGlobalStyle`
   h4 {
     font-size: 1.0625rem; // 17px
     line-height: 1.375rem; // 22px
-    font-weight: 400;
+    font-weight: 300;
   };
   
   h5 {
@@ -71,9 +71,9 @@ export const GlobalStyle = createGlobalStyle`
   };
   
   p {
-    font-size: 0;
-    line-height: 0;
-    font-weight: 0;
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    font-weight: 300;
   };
   
   a {

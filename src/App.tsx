@@ -1,10 +1,12 @@
 import React, { Fragment } from "react";
+import "./reset.css";
 import "./App.styles";
+import { GlobalStyle } from "./App.styles";
+import "swiper/swiper.min.css";
+import { ThemeProvider } from "styled-components";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home/Home.page";
 import SignIn from "./pages/SignIn/SignIn.page";
-import { ThemeProvider } from "styled-components";
-import { GlobalStyle } from "./App.styles";
 import defaultTheme from "./themes/default";
 import { RootState } from "./store/store";
 import { useSelector } from "react-redux";

@@ -10,6 +10,12 @@ const defaultTheme: AppTheme = {
       secondary: "#878787",
     },
   },
+
+  breakpoints: {
+    lg: "(max-width: 1300px)",
+    md: "(max-width: 900px)",
+    sm: "(max-width: 600px)",
+  },
 };
 
 export default defaultTheme;

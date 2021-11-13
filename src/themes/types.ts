@@ -8,4 +8,10 @@ export type AppTheme = {
       secondary: string;
     };
   };
+
+  breakpoints: {
+    lg: string;
+    md: string;
+    sm: string;
+  };
 };

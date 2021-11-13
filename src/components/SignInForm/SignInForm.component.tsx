@@ -13,11 +13,11 @@ type SignInFormData = {
 
 const scheme = yup
   .object({
-    login: yup
+    login: yup.string().email("Невалидная почта").required("Обязательное поле"),
+    password: yup
       .string()
-      .email("Невалидная почта")
-      .required("Поле обязательно для заполнения"),
-    password: yup.string().min(8),
+      .min(8, "Минимум 8 символов")
+      .required("Обязательное поле"),
   })
   .required();
 
@@ -41,7 +41,7 @@ const SignInForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <InputWrapper label={"Логин"} error={errors.login}>
+      <InputWrapper label={"Логин"} error={errors.login} mt={"32px"}>
         <input {...register("login")} type="text" />
       </InputWrapper>
 

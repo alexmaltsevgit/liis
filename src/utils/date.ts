@@ -36,6 +36,14 @@ export const normalize = (date: UnnormalizedDate) => {
       return parsedDate;
 
     default:
-      throw new Error("Please, use typescript");
+      throw new Error("Runtime type error");
   }
+};
+
+export const formatRussian = (date: UnnormalizedDate) => {
+  return normalize(date).toLocaleDateString("ru-Ru", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 };

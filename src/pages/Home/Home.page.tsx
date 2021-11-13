@@ -1,6 +1,7 @@
 import React from "react";
 import { HomeContainer, Search, Favourite, Main } from "./Home.styles";
 import SearchForm from "../../components/SearchForm/SearchForm.component";
+import Hotels from "../../components/Hotels/Hotels.component";
 
 const Home = () => {
   return (
@@ -9,7 +10,9 @@ const Home = () => {
         <SearchForm />
       </Search>
       <Favourite>favourite</Favourite>
-      <Main>main</Main>
+      <Main>
+        <Hotels />
+      </Main>
     </HomeContainer>
   );
 };
