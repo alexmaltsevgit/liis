@@ -3,6 +3,7 @@ import createSagaMiddleware from "redux-saga";
 import logger from "redux-logger";
 import { userReducer } from "./user/user.slice";
 import rootSaga from "./rootSaga";
+import { hotelsReducer } from "./hotels/hotels.slice";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,7 +16,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const store = configureStore({
-  reducer: { user: userReducer },
+  reducer: { user: userReducer, hotels: hotelsReducer },
   middleware,
 });
 
