@@ -1,10 +1,10 @@
 import { takeEvery, all, call, put } from "redux-saga/effects";
-import { LoginPayloadAction } from "./user.types";
+import { Login } from "./user.types";
 import Cookies from "js-cookie";
 import { CookiesKeys } from "../../utils/cookies";
 import { userActions } from "./user.slice";
 
-function* authorize({ payload: { login, password } }: LoginPayloadAction) {
+function* authorize({ payload: { login, password } }: Login) {
   try {
     // Better make request to server
     yield Cookies.set(CookiesKeys.isAuthorized, "1");

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  LoginPayloadAction,
-  ErrorPayloadAction,
+  Login,
+  LoginError,
   UserState,
-  SuccessPayloadAction,
+  LoginSuccess,
+  LogoutError,
 } from "./user.types";
 import Cookies from "js-cookie";
 import { CookiesKeys } from "../../utils/cookies";
@@ -28,16 +29,16 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    [ActionTypes.TryLogIn]: (state, action: LoginPayloadAction) => {
+    [ActionTypes.TryLogIn]: (state, action: Login) => {
       // saga trigger
     },
 
-    [ActionTypes.LogInSuccess]: (state, action: SuccessPayloadAction) => {
+    [ActionTypes.LogInSuccess]: (state, action: LoginSuccess) => {
       state.isAuthorized = true;
       state.login = action.payload.login;
     },
 
-    [ActionTypes.LogInError]: (state, action: ErrorPayloadAction) => {
+    [ActionTypes.LogInError]: (state, action: LoginError) => {
       state.error = action.payload.error;
     },
 
@@ -50,7 +51,7 @@ export const userSlice = createSlice({
       state.isAuthorized = false;
     },
 
-    [ActionTypes.LogOutError]: (state, action: ErrorPayloadAction) => {
+    [ActionTypes.LogOutError]: (state, action: LogoutError) => {
       state.error = action.payload.error;
     },
   },

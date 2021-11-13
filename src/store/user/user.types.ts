@@ -9,11 +9,17 @@ export type UserState = {
 
 type UserData = Without<UserState, "isAuthorized" | "error">;
 
-export type LoginPayloadAction = PayloadAction<{
+export type Login = PayloadAction<{
   login: string;
   password: string;
 }>;
 
-export type SuccessPayloadAction = PayloadAction<UserData>;
+export type LoginSuccess = PayloadAction<UserData>;
 
-export type ErrorPayloadAction = PayloadAction<{ error: string }>;
+export type LoginError = PayloadAction<{ error: string }>;
+
+export type Logout = undefined;
+
+export type LogoutSuccess = undefined;
+
+export type LogoutError = PayloadAction<{ error: string }>;
