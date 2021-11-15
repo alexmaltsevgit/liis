@@ -95,7 +95,7 @@ export const PriceWrapper = styled.div`
 
   padding-top: 1rem;
 
-  width: 110px;
+  width: 130px;
 `;
 
 export const PriceTitle = styled.span`
