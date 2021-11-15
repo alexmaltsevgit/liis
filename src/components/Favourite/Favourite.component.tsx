@@ -11,11 +11,11 @@ import { SortRule } from "../HotelsList/HotelsList.types";
 const sorts: Array<SortRule> = [
   {
     name: "Рейтинг",
-    predicate: (left, right) => left.stars - right.stars,
+    predicate: (left, right) => right.stars - left.stars,
   },
   {
     name: "Цена",
-    predicate: (left, right) => left.priceFrom - right.priceFrom,
+    predicate: (left, right) => right.priceFrom - left.priceFrom,
   },
 ];
 
