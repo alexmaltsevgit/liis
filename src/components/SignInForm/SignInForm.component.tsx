@@ -17,7 +17,12 @@ const scheme = yup
     password: yup
       .string()
       .min(8, "Минимум 8 символов")
-      .required("Обязательное поле"),
+      .required("Обязательное поле")
+      .test(
+        "not-cyrillic",
+        "Кириллица запрещена",
+        (value) => !/[а-яА-Я]/.test(value || "")
+      ),
   })
   .required();
 
