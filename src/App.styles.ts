@@ -80,4 +80,28 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: ${({ theme }) => theme.colors.text.primary};
   }
+  
+  button {
+    padding: 4px 8px;
+    
+    line-height: 1.25rem;
+    
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: ${({ theme }) => theme.colors.light};
+    
+    color: ${({ theme }) => theme.colors.light};
+    
+    background-color: #fff;
+    
+    cursor: pointer;
+    
+    transition: all .2s linear;
+    
+    &:hover {
+      border-color: ${({ theme }) => theme.colors.dark};
+      color: ${({ theme }) => theme.colors.dark};
+    }
+  }
 `;

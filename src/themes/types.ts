@@ -1,8 +1,14 @@
 export type AppTheme = {
   colors: {
+    dark: string;
+    light: string;
+
     background: string;
-    red?: string;
-    yellow?: string;
+
+    red: string;
+    green: string;
+    yellow: string;
+
     text: {
       primary: string;
       secondary: string;
