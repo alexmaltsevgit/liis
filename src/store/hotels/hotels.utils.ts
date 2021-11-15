@@ -1,27 +1,12 @@
-import hotelsMock from "../../hotels-mock.json";
-import { HotelsAPIData } from "./hotels.types";
-import {
-  getObjectFromLocalStorage,
-  LocalStorageKeys,
-} from "../../utils/localStorage";
+import { HotelsState } from "./hotels.types";
 
-export const getInitialItems = () => {
-  const isProduction = process.env.NODE_ENV === "production";
-  if (isProduction) {
-    return hotelsMock as HotelsAPIData;
-  } else {
-    return hotelsMock as HotelsAPIData;
-  }
-};
+export const defaultLimit = 30;
+export const defaultDaysCount = 1;
 
-export const getInitialFavourite = () => {
-  return getObjectFromLocalStorage(LocalStorageKeys.Favourite, []);
-};
-
-export const arrayWithout = <T>(arr: Array<T>, el: T) => {
-  const newArr = [...arr];
-  const index = arr.indexOf(el);
-  newArr.splice(index, 1);
-
-  return newArr;
+export const getInitialState = (): HotelsState => {
+  return {
+    items: [],
+    location: "Москва",
+    checkIn: new Date(),
+  };
 };
