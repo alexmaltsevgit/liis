@@ -11,7 +11,7 @@ import { CookiesKeys } from "../../utils/cookies";
 
 // Mock data. Fetch initial state from server in production
 const initialState: UserState = {
-  isAuthorized: !!Cookies.get(CookiesKeys.isAuthorized),
+  isAuthorized: Boolean(parseInt(Cookies.get(CookiesKeys.isAuthorized) ?? "")),
   login: "",
 };
 
@@ -47,8 +47,8 @@ export const userSlice = createSlice({
     },
 
     [ActionTypes.LogOutSuccess]: (state) => {
-      Object.assign(state, initialState);
       state.isAuthorized = false;
+      state.login = "";
     },
 
     [ActionTypes.LogOutError]: (state, action: LogoutError) => {

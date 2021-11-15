@@ -6,7 +6,6 @@ import { userActions } from "./user.slice";
 
 function* authorize({ payload: { login, password } }: Login) {
   try {
-    // Better make request to server
     yield Cookies.set(CookiesKeys.isAuthorized, "1");
     yield put(userActions.logInSuccess({ login }));
   } catch (e) {
@@ -16,7 +15,6 @@ function* authorize({ payload: { login, password } }: Login) {
 
 function* unauthorize() {
   try {
-    // Better make request to server
     yield Cookies.set(CookiesKeys.isAuthorized, "0");
     yield put(userActions.logOutSuccess());
   } catch (e) {
