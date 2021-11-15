@@ -9,7 +9,7 @@ enum RequestKeys {
 }
 
 class URLBuilder {
-  public baseURL = "http://engine.hotellook.com/api/v2/cache.json";
+  public baseURL = "https://engine.hotellook.com/api/v2/cache.json";
   public URL = this.baseURL + "?";
 
   public addArgument(key: string, argument: string) {
