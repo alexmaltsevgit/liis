@@ -13,7 +13,12 @@ type SignInFormData = {
 
 const scheme = yup
   .object({
-    login: yup.string().email("Невалидная почта").required("Обязательное поле"),
+    login: yup
+      .string()
+      .trim()
+      .email("Невалидная почта")
+      .required("Обязательное поле"),
+
     password: yup
       .string()
       .min(8, "Минимум 8 символов")
