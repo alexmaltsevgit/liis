@@ -1,27 +1,39 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { HeartContainer } from "./Heart.styles";
 import { ReactComponent as HeartSVG } from "../../images/heart.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { hotelsActions } from "../../store/hotels/hotels.slice";
 import { RootState } from "../../store/store";
+import { HotelT } from "../../utils/api/types";
+import { favouriteActions } from "../../store/favourite/favourite.slice";
 
-type StarProps = {
-  hotelID: number;
+type HeartProps = {
+  hotel: HotelT;
 };
 
-const Heart = ({ hotelID }: StarProps) => {
-  const favourite = useSelector((state: RootState) => state.hotels.favourite);
-  const [active, setActive] = useState(() => favourite.includes(hotelID));
+const checkActive = (list: Array<HotelT>, current: HotelT) => {
+  return list.some((item) => item.hotelId === current.hotelId);
+};
+
+const Heart = ({ hotel }: HeartProps) => {
+  const favourite = useSelector((state: RootState) => state.favourite);
+  const [active, setActive] = useState(() =>
+    checkActive(favourite.items, hotel)
+  );
 
   const dispatch = useDispatch();
   const toggleFavourite = useCallback(() => {
+    const hotelID = hotel.hotelId;
     const action = active
-      ? hotelsActions.tryRemoveFavourite({ hotelID })
-      : hotelsActions.tryAddFavourite({ hotelID });
+      ? favouriteActions.tryRemoveFavourite({ hotelID })
+      : favouriteActions.tryAddFavourite(hotel);
 
     dispatch(action);
     setActive((active) => !active);
-  }, [dispatch, active]);
+  }, [dispatch, active, hotel]);
+
+  useEffect(() => {
+    setActive(checkActive(favourite.items, hotel));
+  }, [favourite, hotel]);
 
   return (
     <HeartContainer active={active} onClick={toggleFavourite}>

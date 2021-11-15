@@ -1,18 +1,26 @@
 import React from "react";
-import { HomeContainer, Search, Favourite, Main } from "./Home.styles";
+import {
+  HomeContainer,
+  SearchCard,
+  FavouriteCard,
+  MainCard,
+} from "./Home.styles";
 import SearchForm from "../../components/SearchForm/SearchForm.component";
 import Hotels from "../../components/Hotels/Hotels.component";
+import Favourite from "../../components/Favourite/Favourite.component";
 
 const Home = () => {
   return (
     <HomeContainer>
-      <Search>
+      <SearchCard>
         <SearchForm />
-      </Search>
-      <Favourite>favourite</Favourite>
-      <Main>
+      </SearchCard>
+      <FavouriteCard>
+        <Favourite />
+      </FavouriteCard>
+      <MainCard>
         <Hotels />
-      </Main>
+      </MainCard>
     </HomeContainer>
   );
 };

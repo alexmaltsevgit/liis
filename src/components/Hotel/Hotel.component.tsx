@@ -1,42 +1,36 @@
 import React from "react";
-import { formatRussian, UnnormalizedDate } from "../../utils/date";
+import { formatRussian } from "../../utils/date";
 import {
   CheckInDate,
   Date,
   DaysCount,
+  HeartWrapper,
   HotelContainer,
+  HotelContent,
   ImageWrapper,
-  MainInfo,
+  InfoRow,
   Name,
-  SecondaryInfo,
+  Price,
+  PriceTitle,
+  PriceWrapper,
   Stars,
+  Subtitle,
+  TitleRow,
 } from "./Hotel.styles";
 import { ReactComponent as HouseImage } from "../../images/house.svg";
 import Star from "../Star/Star.component";
 import Heart from "../Heart/Heart.component";
+import { HotelT } from "../../utils/api/types";
+import { declOfNum } from "../../utils/locale";
 
 type HotelProps = {
-  id: number;
-  name: string;
-  checkIn: UnnormalizedDate;
-  daysCount: number;
-  price: number;
-  stars: number;
-
+  model: HotelT;
   small?: boolean;
 };
 
 const starsCount = 5;
 
-const Hotel = ({
-  id,
-  name,
-  checkIn,
-  daysCount,
-  price,
-  stars,
-  small,
-}: HotelProps) => {
+const Hotel = ({ model, small = false }: HotelProps) => {
   return (
     <HotelContainer>
       {small || (
@@ -45,26 +39,44 @@ const Hotel = ({
         </ImageWrapper>
       )}
 
-      <MainInfo>
-        <Name>{name}</Name>
+      <HotelContent>
+        <TitleRow>
+          <Name>{model.hotelName}</Name>
+          <HeartWrapper>
+            <Heart hotel={model} />
+          </HeartWrapper>
+        </TitleRow>
 
-        <Date>
-          <CheckInDate>{formatRussian(checkIn)}</CheckInDate>
-          <DaysCount>{daysCount}</DaysCount>
-        </Date>
+        <InfoRow>
+          <Subtitle>
+            <Date>
+              <CheckInDate>{formatRussian(model.checkIn)}</CheckInDate>
+              <DaysCount>
+                {model.daysCount}{" "}
+                {declOfNum(model.daysCount, ["день", "дня", "дней"])}
+              </DaysCount>
+            </Date>
 
-        <Stars>
-          {Array(starsCount)
-            .fill(0)
-            .map((_, index) => (
-              <Star key={index} active={index < stars} />
-            ))}
-        </Stars>
-      </MainInfo>
+            <Stars>
+              {Array(starsCount)
+                .fill(0)
+                .map((_, index) => (
+                  <Star key={index} active={index < model.stars} />
+                ))}
+            </Stars>
+          </Subtitle>
 
-      <SecondaryInfo>
-        <Heart hotelID={id} />
-      </SecondaryInfo>
+          <PriceWrapper>
+            <PriceTitle>Цена:</PriceTitle>
+            <Price>
+              {new Intl.NumberFormat().format(
+                Number(model.priceFrom.toFixed())
+              )}{" "}
+              ₽
+            </Price>
+          </PriceWrapper>
+        </InfoRow>
+      </HotelContent>
     </HotelContainer>
   );
 };

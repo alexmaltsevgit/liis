@@ -1,5 +1,5 @@
-import { HotelsAPIData } from "../../store/hotels/hotels.types";
 import { normalize, UnnormalizedDate } from "../date";
+import { HotelT } from "./types";
 
 enum RequestKeys {
   location = "location",
@@ -78,7 +78,7 @@ export default class HotelsAPI {
     this.buildRequestURL();
   }
 
-  public async getHotels(): Promise<HotelsAPIData> {
+  public async getHotels(): Promise<Array<HotelT>> {
     const response = await fetch(this.URL);
     return await response.json();
   }

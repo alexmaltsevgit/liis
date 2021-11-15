@@ -6,10 +6,15 @@ export const HomeContainer = styled(Container)`
   display: grid;
   grid-template:
     "search main" auto
-    "favourite main" auto /
+    "favourite main" minmax(0, 1fr) /
     minmax(auto, 360px) auto;
 
+  flex: 1;
+  height: 0;
+
   grid-gap: 1.5rem;
+
+  padding-bottom: 30px;
 
   @media screen and ${({ theme }) => theme.breakpoints.md} {
     grid-template:
@@ -20,14 +25,14 @@ export const HomeContainer = styled(Container)`
   } ;
 `;
 
-export const Search = styled(Card)`
+export const SearchCard = styled(Card)`
   grid-area: search;
 `;
 
-export const Favourite = styled(Card)`
+export const FavouriteCard = styled(Card)`
   grid-area: favourite;
 `;
 
-export const Main = styled(Card)`
+export const MainCard = styled(Card)`
   grid-area: main;
 `;

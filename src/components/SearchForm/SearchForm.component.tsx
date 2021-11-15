@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import InputWrapper from "../InputWrapper/InputWrapper.component";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import { hotelsActions } from "../../store/hotels/hotels.slice";
 import { getDateByDaysOffset } from "../../utils/date";
+import { defaultLimit } from "../../store/hotels/hotels.utils";
 
 type SearchFormData = {
   location: string;
@@ -14,7 +15,10 @@ type SearchFormData = {
 };
 
 const yesterday = getDateByDaysOffset(new Date(), -1);
-const limit = 30;
+
+const fixMinDaysCount = (e: ChangeEvent<HTMLInputElement>) => {
+  if (parseInt(e.target.value) <= 0) e.target.value = "0";
+};
 
 const scheme = yup.object({
   location: yup
@@ -51,13 +55,12 @@ const SearchForm = () => {
 
   const onSubmit = (formData: SearchFormData) => {
     const { location, date, daysCount } = formData;
-    console.log("click");
     dispatch(
       hotelsActions.tryFetch({
         location,
         checkIn: date,
         daysCount: daysCount,
-        limit,
+        limit: defaultLimit,
       })
     );
   };
@@ -83,7 +86,11 @@ const SearchForm = () => {
         bold
         error={errors.daysCount}
       >
-        <input {...register("daysCount")} type="number" />
+        <input
+          {...register("daysCount")}
+          type="number"
+          onChange={fixMinDaysCount}
+        />
       </InputWrapper>
 
       <InputWrapper mt={"32px"}>

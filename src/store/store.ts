@@ -4,6 +4,7 @@ import logger from "redux-logger";
 import { userReducer } from "./user/user.slice";
 import rootSaga from "./rootSaga";
 import { hotelsReducer } from "./hotels/hotels.slice";
+import { favouriteReducer } from "./favourite/favourite.slice";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,7 +17,11 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const store = configureStore({
-  reducer: { user: userReducer, hotels: hotelsReducer },
+  reducer: {
+    user: userReducer,
+    hotels: hotelsReducer,
+    favourite: favouriteReducer,
+  },
   middleware,
 });
 

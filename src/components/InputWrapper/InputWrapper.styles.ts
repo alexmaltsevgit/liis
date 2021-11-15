@@ -40,7 +40,7 @@ export const InputContainer = styled.div<InputWrapperProps>`
 
     &[type="submit"] {
       background: linear-gradient(104.34deg, #41522e -15.34%, #be8022 145.95%);
-      border: 1px;
+      border: 1px ${({ theme }) => theme.colors.green} solid;
       color: #fff;
       font-weight: 500;
 
