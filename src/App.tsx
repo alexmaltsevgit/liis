@@ -33,6 +33,14 @@ function App() {
           <Route exact path={"/"}>
             {isAuthorized ? <Home /> : <Redirect to={"/sign-in"} />}
           </Route>
+
+          <Route path={"*"}>
+            {isAuthorized ? (
+              <Redirect to={"/"} />
+            ) : (
+              <Redirect to={"/sign-in"} />
+            )}
+          </Route>
         </Fragment>
       </Switch>
     </ThemeProvider>
